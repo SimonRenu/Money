@@ -2,23 +2,29 @@ image: maven:3.6.0-jdk-8-alpine
 
 stages:
     - build
+    - test
     - run
     
 build:
     stage: build
     script:
         - mvn compile
-        - mvn package
         
     artifacts:
         name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
         paths: 
         - target
         when: on_success
+
+test: 
+    stage: test
+    script:
+        - nvm test
         
 run:
     stage: run
     script:
+    - nvm package
     - java -jar ./target/Money-1.0-SNAPSHOT.jar
     dependencies:
     - build
