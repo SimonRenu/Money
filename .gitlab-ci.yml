@@ -19,12 +19,12 @@ build:
 test: 
     stage: test
     script:
-        - nvm test
+        - mvn test
         
 run:
     stage: run
     script:
-    - nvm package
+    - mvn package
     - java -jar ./target/Money-1.0-SNAPSHOT.jar
     dependencies:
     - build
